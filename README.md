@@ -20,19 +20,6 @@ I build high-performance web applications and enjoy solving complex algorithmic 
 
 ---
 
-### 🛠️ **Featured Projects**
-
-#### [Portfolio Website](https://syedsuhaan.vercel.app)
-A premium, high-performance portfolio built with **React + Vite**.
-- **Performance**: 100/100 Lighthouse Score.
-- **Design**: "Dark Industrial" aesthetic with custom motion design.
-- **Features**: Mobile-first responsive layout, interactive animations.
-
-#### [Other Projects...]
-*(Add more of your key projects here)*
-
----
-
 ### 📫 **Connect With Me**
 
 - **Portfolio**: [syedsuhaan.vercel.app](https://syedsuhaan.vercel.app)
