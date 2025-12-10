@@ -1,0 +1,43 @@
+:root {
+  /* Colors - Dark Theme (Industrial/Premium) */
+  --bg-color: #050505;
+  /* Almost Pure Black */
+  --bg-card: #0a0a0a;
+  /* Very Dark Gray for subtle separation */
+  --text-primary: #ffffff;
+  /* Pure White */
+  --text-secondary: #888888;
+  /* Industrial Gray */
+  --accent-primary: #FF3D00;
+  /* Vibrant Orange (from screenshots) */
+  --accent-hover: #E03300;
+  /* Deep Orange */
+  --border-color: #222222;
+  /* Subtle Border */
+
+  /* Motion System - Global Settings */
+  --scroll-behavior: smooth;
+
+  /* Easings */
+  --ease-default: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --ease-fade-up: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-scale: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-slide: cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* Durations */
+  --duration-short: 0.25s;
+  --duration-medium: 0.5s;
+  --duration-long: 0.8s;
+
+  /* Hover Transitions */
+  --transition-hover: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-short: 0s;
+    --duration-medium: 0s;
+    --duration-long: 0s;
+    --transition-hover: none;
+  }
+}

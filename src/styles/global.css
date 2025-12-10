@@ -1,0 +1,168 @@
+@import './variables.css';
+@import './animations.css';
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+/* Layout Utilities */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section {
+    padding: 6rem 0;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1.25rem;
+        /* Reduced padding */
+    }
+
+    .section {
+        padding: 4rem 0;
+        /* Reduced vertical spacing */
+    }
+
+    body {
+        overflow-x: hidden;
+        /* Prevent horizontal scroll */
+    }
+}
+
+/* Sticky Header Styles */
+.site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1.5rem 0;
+    transition: var(--transition-hover);
+}
+
+.site-nav.nav-solid {
+    background-color: rgba(5, 5, 5, 0.85);
+    /* Dark backdrop */
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.5);
+    /* Stronger shadow */
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Syne', sans-serif;
+    /* Aesthetic professional font */
+    font-weight: 800;
+    font-size: 1.75rem;
+    /* Reduced from 2.5rem */
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent-primary);
+}
+
+/* Button Styles */
+.btn {
+    display: inline-flex;
+    padding: 0.75rem 1.5rem;
+    /* Reduced from 1rem 2rem */
+    /* Larger touch targets */
+    border-radius: 4px;
+    /* Sharper corners for industrial look */
+    font-weight: 600;
+    transition: var(--transition-hover);
+    cursor: pointer;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+}
+
+.btn-primary {
+    background-color: var(--accent-primary);
+    color: #ffffff;
+    /* White text on Orange */
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(255, 61, 0, 0.4);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-outline:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    background-color: rgba(255, 61, 0, 0.05);
+    /* Subtle orange tint */
+}

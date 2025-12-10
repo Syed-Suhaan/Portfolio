@@ -1,0 +1,136 @@
+/* Base Reveal Helper */
+[class*="reveal-"] {
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+[class*="reveal-"].is-visible {
+    opacity: 1;
+    /* Ensure it stays visible after animation if forwards doesn't catch for some reason, though forwards handles it */
+    animation-fill-mode: forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+/* 1. Fade Up */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal-fade-up.is-visible {
+    animation-name: fadeUp;
+    animation-duration: 0.6s;
+    animation-timing-function: var(--ease-fade-up);
+}
+
+/* 2. Fade In */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.reveal-fade-in.is-visible {
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+}
+
+/* 3. Scale In */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.reveal-scale-in.is-visible {
+    animation-name: scaleIn;
+    animation-duration: 0.4s;
+    animation-timing-function: var(--ease-scale);
+}
+
+/* 4. Slide In X */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-32px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(32px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.reveal-slide-in-left.is-visible {
+    animation-name: slideInLeft;
+    animation-duration: 0.6s;
+    animation-timing-function: var(--ease-slide);
+}
+
+.reveal-slide-in-right.is-visible {
+    animation-name: slideInRight;
+    animation-duration: 0.6s;
+    animation-timing-function: var(--ease-slide);
+}
+
+/* Looping Scroll Hint */
+@keyframes loopScroll {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(6px);
+        opacity: 0.4;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-loop-scroll {
+    animation: loopScroll 1.3s ease-in-out infinite;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+    [class*="reveal-"] {
+        opacity: 1;
+        transform: none;
+        animation: none !important;
+        transition: none !important;
+    }
+}

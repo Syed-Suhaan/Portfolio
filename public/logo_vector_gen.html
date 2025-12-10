@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Logo Vector Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/opentype.js/1.3.4/opentype.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="status">Loading...</div>
+    <div id="svg-container"></div>
+
+    <script>
+        const fontUrl = 'https://fonts.gstatic.com/s/syne/v24/8vIS7w4qzmVxsWxjBZRjr0FKM_24vj6k.ttf';
+        const text = 'SUHAAN';
+        const fontSize = 120;
+
+        opentype.load(fontUrl, function (err, font) {
+            if (err) {
+                document.getElementById('status').innerText = 'Font could not be loaded: ' + err;
+            } else {
+                const path = font.getPath(text, 0, 100, fontSize);
+                // Get bounding box directly from path to set viewBox slightly tight
+                const bbox = path.getBoundingBox();
+                const width = bbox.x2 - bbox.x1;
+                const height = bbox.y2 - bbox.y1;
+
+                // Add some padding
+                const padding = 20;
+
+                const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                svg.setAttribute("width", width + padding * 2);
+                svg.setAttribute("height", height + padding * 2);
+                svg.setAttribute("viewBox", `${bbox.x1 - padding} ${bbox.y1 - padding} ${width + padding * 2} ${height + padding * 2}`);
+                svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+
+                // Path with Black fill
+                const pathData = path.toPathData(2); // 2 decimal precision
+                const newPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                newPath.setAttribute("d", pathData);
+                newPath.setAttribute("fill", "#000000"); // Black as requested
+
+                svg.appendChild(newPath);
+
+                document.getElementById('svg-container').appendChild(svg);
+                document.getElementById('status').innerText = 'DONE';
+            }
+        });
+    </script>
+</body>
+
+</html>
