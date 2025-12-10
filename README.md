@@ -1,16 +1,44 @@
-# React + Vite
+# Hi there, I'm Syed Suhaan 👋
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Aspiring Software Engineer** driven by algorithms, performance, and clean design.
 
-Currently, two official plugins are available:
+I build high-performance web applications and enjoy solving complex algorithmic problems. My focus is on creating efficient, scalable systems with premium user experiences.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+### 🚀 **About Me**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🎓 **Student & Developer** based in India.
+- 🏆 **Competitive Programmer**: Specialized in Data Structures & Algorithms.
+    - **Codeforces**: [Max Rating 1494](https://codeforces.com/profile/Suhaan) (Specialist)
+    - **LeetCode**: Solved 500+ Problems
+- 💻 **Tech Stack**:
+    - **Languages**: C++, JavaScript, TypeScript, Go, Python, Dart
+    - **Frontend**: React.js, Next.js, TailwindCSS, Flutter
+    - **Backend**: Node.js, Express, FastAPI, Firebase, PostgreSQL
+    - **Tools**: Git, Docker, Linux
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🛠️ **Featured Projects**
+
+#### [Portfolio Website](https://syedsuhaan.vercel.app)
+A premium, high-performance portfolio built with **React + Vite**.
+- **Performance**: 100/100 Lighthouse Score.
+- **Design**: "Dark Industrial" aesthetic with custom motion design.
+- **Features**: Mobile-first responsive layout, interactive animations.
+
+#### [Other Projects...]
+*(Add more of your key projects here)*
+
+---
+
+### 📫 **Connect With Me**
+
+- **Portfolio**: [syedsuhaan.vercel.app](https://syedsuhaan.vercel.app)
+- **LinkedIn**: [linkedin.com/in/syedsuhaan](https://linkedin.com/in/syedsuhaan)
+- **Email**: [contact@syedsuhaan.com](mailto:contact@syedsuhaan.com)
+
+---
+
+*"Building software with O(n) efficiency and O(1) aesthetics."*
