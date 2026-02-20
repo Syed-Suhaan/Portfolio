@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const isHome = location.pathname === '/';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -28,24 +32,48 @@ const Navbar = () => {
         { name: 'Contact', to: 'contact' },
     ];
 
+    const handleNavClick = (to) => {
+        if (!isHome) {
+            navigate('/', { state: { scrollTo: to } });
+        }
+        setIsOpen(false);
+    };
+
     return (
         <nav className={`site-nav ${scrolled ? 'nav-solid' : ''}`}>
             <div className="container nav-content">
-                <div className="logo">SUHAAN</div>
+                <div
+                    className="logo"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => navigate('/')}
+                >
+                    SUHAAN
+                </div>
 
                 {/* Desktop Links */}
                 <div className="nav-links desktop-only">
                     {navLinks.map(link => (
-                        <ScrollLink
-                            key={link.to}
-                            to={link.to}
-                            smooth={true}
-                            duration={500}
-                            className="nav-link"
-                            style={{ cursor: 'pointer' }}
-                        >
-                            {link.name}
-                        </ScrollLink>
+                        isHome ? (
+                            <ScrollLink
+                                key={link.to}
+                                to={link.to}
+                                smooth={true}
+                                duration={500}
+                                className="nav-link"
+                                style={{ cursor: 'pointer' }}
+                            >
+                                {link.name}
+                            </ScrollLink>
+                        ) : (
+                            <span
+                                key={link.to}
+                                className="nav-link"
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => handleNavClick(link.to)}
+                            >
+                                {link.name}
+                            </span>
+                        )
                     ))}
                 </div>
 
@@ -64,16 +92,26 @@ const Navbar = () => {
                 <div className={`mobile-sidebar ${isOpen ? 'open' : ''}`}>
                     <div className="sidebar-links">
                         {navLinks.map(link => (
-                            <ScrollLink
-                                key={link.to}
-                                to={link.to}
-                                smooth={true}
-                                duration={500}
-                                className="sidebar-link"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                {link.name}
-                            </ScrollLink>
+                            isHome ? (
+                                <ScrollLink
+                                    key={link.to}
+                                    to={link.to}
+                                    smooth={true}
+                                    duration={500}
+                                    className="sidebar-link"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    {link.name}
+                                </ScrollLink>
+                            ) : (
+                                <span
+                                    key={link.to}
+                                    className="sidebar-link"
+                                    onClick={() => handleNavClick(link.to)}
+                                >
+                                    {link.name}
+                                </span>
+                            )
                         ))}
                     </div>
                 </div>
