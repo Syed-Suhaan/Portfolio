@@ -2,400 +2,110 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import projects from "../data/projects";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
-const ProjectListCard = ({ project, index }) => {
-    const ref = useIntersectionObserver({ threshold: 0.1 });
-    const accentColor = project.color || "var(--accent-primary)";
+const ProjectListCard = ({ project, delay }) => {
+  const ref = useIntersectionObserver({ threshold: 0.1 });
+  const accentColor = project.color || "hsl(var(--primary))";
 
-    return (
-        <Link
-            to={`/projects/${project.slug}`}
-            ref={ref}
-            className="plist-card reveal-fade-up"
-            style={{ "--delay": `${index * 0.1}s`, "--accent": accentColor }}
-        >
-            <div className="plist-card-inner">
-                {/* Left: Icon */}
-                <div className="plist-icon-wrap">
-                    <div
-                        className="plist-icon"
-                        style={{
-                            backgroundColor: accentColor,
-                            maskImage: `url("${project.icon}")`,
-                            WebkitMaskImage: `url("${project.icon}")`,
-                        }}
-                    />
+  return (
+    <Link to={`/projects/${project.slug}`} className="no-underline group">
+      <Card
+        ref={ref}
+        className="reveal-fade-up bg-card border-border overflow-hidden transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)] hover:border-white/10 h-full"
+        style={{ '--delay': `${delay}s` }}
+      >
+        <div className="h-[3px] w-0 group-hover:w-full transition-all duration-500 ease-out" style={{ backgroundColor: accentColor }} />
+
+        <CardHeader className="p-6 pb-3">
+          <div className="flex items-center justify-between mb-3">
+            <Badge variant="outline" className="text-[0.6rem] font-bold uppercase tracking-wider" style={{ borderColor: accentColor, color: accentColor }}>
+              {project.category}
+            </Badge>
+            <span className="text-xs text-muted-foreground font-medium">{project.date}</span>
+          </div>
+          <h3 className="text-xl font-extrabold uppercase tracking-tight text-foreground group-hover:text-white transition-colors m-0">
+            {project.title}
+          </h3>
+          <p className="text-xs text-muted-foreground font-medium mt-1 m-0">{project.subtitle}</p>
+        </CardHeader>
+
+        <CardContent className="p-6 pt-0">
+          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-5">
+            {project.description}
+          </p>
+
+          {project.highlights && project.highlights.length > 0 && (
+            <div className="flex gap-4 mb-4">
+              {project.highlights.slice(0, 3).map((h, i) => (
+                <div key={i} className="flex items-baseline gap-1.5">
+                  <span className="text-lg font-extrabold" style={{ color: accentColor }}>{h.metric}</span>
+                  <span className="text-[0.6rem] text-muted-foreground uppercase font-semibold">{h.label}</span>
                 </div>
-
-                {/* Content */}
-                <div className="plist-content">
-                    <div className="plist-top-row">
-                        <span
-                            className="plist-category"
-                            style={{ borderColor: accentColor, color: accentColor }}
-                        >
-                            {project.category}
-                        </span>
-                        <span className="plist-date">{project.date}</span>
-                    </div>
-                    <h2 className="plist-title">{project.title}</h2>
-                    <p className="plist-subtitle">{project.subtitle}</p>
-                    <p className="plist-summary">{project.summary}</p>
-
-                    {/* Tags */}
-                    <div className="plist-tags">
-                        {project.tags.map((tag) => (
-                            <span
-                                key={tag}
-                                className="plist-tag"
-                                style={{
-                                    backgroundColor: `${accentColor}12`,
-                                    color: accentColor,
-                                    borderColor: `${accentColor}30`,
-                                }}
-                            >
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-
-                    {/* Metrics Preview */}
-                    <div className="plist-metrics">
-                        {project.highlights.slice(0, 3).map((h, i) => (
-                            <div key={i} className="plist-metric">
-                                <span className="plist-metric-val" style={{ color: accentColor }}>
-                                    {h.metric}
-                                </span>
-                                <span className="plist-metric-label">{h.label}</span>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Arrow */}
-                <div className="plist-arrow">
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                    >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                </div>
+              ))}
             </div>
-        </Link>
-    );
+          )}
+
+          <div className="flex flex-wrap gap-1.5 mt-auto">
+            {project.tags?.slice(0, 5).map(tag => (
+              <span key={tag} className="text-[0.6rem] font-semibold px-2.5 py-0.5 rounded-full border border-border text-muted-foreground bg-secondary/50">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    </Link>
+  );
 };
 
 const ProjectsListPage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    return (
-        <div className="projects-list-page">
-            {/* Back to home */}
-            <button
-                onClick={() => navigate("/")}
-                className="back-btn"
-                aria-label="Go home"
-            >
-                <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                >
-                    <path d="M19 12H5M12 19l-7-7 7-7" />
-                </svg>
-                <span>Home</span>
-            </button>
+  return (
+    <div className="bg-background min-h-screen pb-16">
+      {/* Floating back button */}
+      <button
+        onClick={() => navigate("/")}
+        className="fixed top-6 left-6 z-[100] flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] backdrop-blur-2xl border border-white/[0.08] rounded-full text-muted-foreground text-sm font-semibold cursor-pointer transition-all duration-300 hover:text-foreground hover:border-white/20 hover:-translate-x-1 shadow-[0_4px_24px_-4px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.04)]"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        Home
+      </button>
 
-            <section className="plist-hero">
-                <div className="container">
-                    <p className="plist-label">Portfolio</p>
-                    <h1 className="plist-heading">All Projects</h1>
-                    <p className="plist-desc">
-                        A collection of systems, products, and experiments I&apos;ve built —
-                        from high-performance databases to AI research tools.
-                    </p>
-                </div>
-            </section>
-
-            <section className="plist-section">
-                <div className="container">
-                    <div className="plist-grid">
-                        {projects.map((project, index) => (
-                            <ProjectListCard
-                                key={project.slug}
-                                project={project}
-                                index={index}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            <style>{`
-        .projects-list-page {
-          background-color: var(--bg-color);
-          min-height: 100vh;
-          padding-bottom: 4rem;
-        }
-
-        /* ── Back Button ── */
-        .back-btn {
-          position: fixed;
-          top: 2rem;
-          left: 2rem;
-          z-index: 100;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.6rem 1.2rem;
-          background: rgba(10, 10, 10, 0.85);
-          backdrop-filter: blur(12px);
-          border: 1px solid var(--border-color);
-          border-radius: 99px;
-          color: var(--text-secondary);
-          font-size: 0.85rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        .back-btn:hover {
-          color: var(--text-primary);
-          border-color: var(--text-secondary);
-          transform: translateX(-4px);
-        }
-
-        /* ── Hero ── */
-        .plist-hero {
-          padding: 8rem 0 3rem;
-          border-bottom: 1px solid var(--border-color);
-        }
-        .plist-label {
-          font-size: 0.75rem;
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          color: var(--accent-primary);
-          font-weight: 700;
-          margin-bottom: 0.5rem;
-        }
-        .plist-heading {
-          font-size: clamp(2.5rem, 5vw, 4rem);
-          font-weight: 800;
-          letter-spacing: -0.03em;
-          text-transform: uppercase;
-          margin: 0 0 1rem;
-        }
-        .plist-desc {
-          font-size: 1.1rem;
-          color: var(--text-secondary);
-          max-width: 600px;
-          line-height: 1.6;
-        }
-
-        /* ── Card List ── */
-        .plist-section {
-          padding: 3rem 0;
-        }
-        .plist-grid {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-        .plist-card {
-          display: block;
-          text-decoration: none;
-          color: inherit;
-          background: var(--bg-card);
-          border: 1px solid var(--border-color);
-          border-radius: 20px;
-          overflow: hidden;
-          transition: all 0.35s ease;
-          cursor: pointer;
-        }
-        .plist-card:hover {
-          transform: translateY(-4px);
-          border-color: var(--accent);
-          box-shadow: 0 24px 48px -12px rgba(0,0,0,0.6);
-        }
-        .plist-card-inner {
-          display: flex;
-          align-items: flex-start;
-          gap: 2.5rem;
-          padding: 2.5rem;
-        }
-
-        /* Icon */
-        .plist-icon-wrap {
-          flex-shrink: 0;
-          width: 80px;
-          height: 80px;
-          border-radius: 16px;
-          background: linear-gradient(135deg, #111, #0a0a0a);
-          border: 1px solid var(--border-color);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .plist-icon {
-          width: 42px;
-          height: 42px;
-          mask-size: contain;
-          -webkit-mask-size: contain;
-          mask-repeat: no-repeat;
-          -webkit-mask-repeat: no-repeat;
-          mask-position: center;
-          -webkit-mask-position: center;
-          transition: filter 0.3s ease;
-        }
-        .plist-card:hover .plist-icon {
-          filter: drop-shadow(0 0 12px var(--accent));
-        }
-
-        /* Content */
-        .plist-content {
-          flex: 1;
-          min-width: 0;
-        }
-        .plist-top-row {
-          display: flex;
-          align-items: center;
-          gap: 1.5rem;
-          margin-bottom: 0.75rem;
-        }
-        .plist-category {
-          font-size: 0.65rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          padding: 0.25rem 0.6rem;
-          border: 1px solid;
-          border-radius: 99px;
-        }
-        .plist-date {
-          font-size: 0.75rem;
-          color: var(--text-secondary);
-          font-weight: 500;
-        }
-        .plist-title {
-          font-size: 1.6rem;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: -0.02em;
-          margin: 0 0 0.15rem;
-          line-height: 1.1;
-        }
-        .plist-subtitle {
-          font-size: 0.9rem;
-          color: var(--text-secondary);
-          margin: 0 0 0.75rem;
-          font-weight: 400;
-        }
-        .plist-summary {
-          font-size: 0.85rem;
-          color: var(--text-secondary);
-          line-height: 1.6;
-          margin: 0 0 1rem;
-          max-width: 650px;
-        }
-
-        /* Tags */
-        .plist-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.4rem;
-          margin-bottom: 1.25rem;
-        }
-        .plist-tag {
-          font-size: 0.7rem;
-          font-weight: 600;
-          padding: 0.2rem 0.65rem;
-          border-radius: 99px;
-          border: 1px solid;
-        }
-
-        /* Metrics Preview */
-        .plist-metrics {
-          display: flex;
-          gap: 2rem;
-          flex-wrap: wrap;
-        }
-        .plist-metric {
-          display: flex;
-          flex-direction: column;
-        }
-        .plist-metric-val {
-          font-size: 1.4rem;
-          font-weight: 800;
-          line-height: 1;
-        }
-        .plist-metric-label {
-          font-size: 0.65rem;
-          color: var(--text-secondary);
-          text-transform: uppercase;
-          font-weight: 600;
-          letter-spacing: 0.03em;
-          margin-top: 0.2rem;
-        }
-
-        /* Arrow */
-        .plist-arrow {
-          flex-shrink: 0;
-          color: var(--text-secondary);
-          transition: all 0.3s ease;
-          align-self: center;
-        }
-        .plist-card:hover .plist-arrow {
-          color: var(--accent);
-          transform: translateX(6px);
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 768px) {
-          .back-btn {
-            top: 1rem;
-            left: 1rem;
-          }
-          .plist-hero {
-            padding: 6rem 0 2rem;
-          }
-          .plist-card-inner {
-            flex-direction: column;
-            gap: 1.5rem;
-            padding: 1.5rem;
-          }
-          .plist-icon-wrap {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-          }
-          .plist-icon {
-            width: 30px;
-            height: 30px;
-          }
-          .plist-title {
-            font-size: 1.3rem;
-          }
-          .plist-arrow {
-            display: none;
-          }
-          .plist-metrics {
-            gap: 1.5rem;
-          }
-        }
-      `}</style>
+      {/* Header */}
+      <section className="pt-32 pb-16">
+        <div className="container max-w-[1200px] mx-auto px-8">
+          <p className="text-xs uppercase tracking-[0.12em] text-primary font-bold mb-2 m-0">Portfolio</p>
+          <h1 className="text-[clamp(2.5rem,6vw,4rem)] font-extrabold uppercase tracking-tighter text-foreground m-0">
+            All Projects
+          </h1>
+          <p className="text-lg text-muted-foreground mt-3 max-w-[600px] m-0">
+            A collection of engineering work spanning systems programming, AI/ML, SaaS, and mobile development.
+          </p>
         </div>
-    );
+      </section>
+
+      {/* Grid */}
+      <section>
+        <div className="container max-w-[1200px] mx-auto px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {projects.map((project, index) => (
+              <ProjectListCard key={project.slug} project={project} delay={index * 0.1} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 };
 
 export default ProjectsListPage;

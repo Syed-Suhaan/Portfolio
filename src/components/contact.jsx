@@ -1,84 +1,57 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import FooterGame from './footer-game';
 
 const Contact = () => {
     const ref = useIntersectionObserver({ threshold: 0.1 });
 
     return (
-        <section id="contact" className="section" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div className="container">
+        <section id="contact" className="section py-24 min-h-[60vh] flex items-center justify-center bg-background">
+            <div className="container max-w-[1200px] mx-auto px-8">
                 <div
                     ref={ref}
-                    className="reveal-fade-up"
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                        gap: '3rem',
-                        alignItems: 'center'
-                    }}
+                    className="reveal-fade-up grid grid-cols-1 md:grid-cols-[1fr_auto] gap-12 items-center"
                 >
                     {/* Left: Content */}
-                    <div style={{ textAlign: 'left' }}>
-                        <p style={{
-                            fontSize: '1rem',
-                            textTransform: 'uppercase',
-                            color: 'var(--accent-primary)',
-                            fontWeight: 600,
-                            letterSpacing: '0.1em',
-                            marginBottom: '-0.5rem'
-                        }}>
+                    <div>
+                        <p className="text-sm uppercase text-primary font-semibold tracking-[0.1em] mb-2 m-0">
                             Get in Touch
                         </p>
 
-                        <h2 style={{
-                            fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-                            fontWeight: 800,
-                            margin: 0,
-                            textTransform: 'uppercase',
-                            letterSpacing: '-0.03em',
-                            color: 'var(--text-primary)',
-                            lineHeight: 0.9
-                        }}>
-                            Let's<br />
-                            <span style={{ color: 'var(--text-secondary)', opacity: 0.5 }}>Build</span><br />
+                        <h2 className="text-[clamp(2.5rem,8vw,5rem)] font-extrabold uppercase tracking-tight text-foreground leading-[0.9] m-0">
+                            Let&apos;s<br />
+                            <span className="text-muted-foreground/50">Build</span><br />
                             Future.
                         </h2>
 
-                        <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'flex-start' }}>
-                            <a
-                                href="mailto:suhaansyed2004@gmail.com"
-                                className="btn btn-primary"
-                                style={{
-                                    fontSize: '1.25rem',
-                                    padding: '1.25rem 2.5rem',
-                                    borderRadius: '99px'
-                                }}
-                            >
-                                suhaansyed2004@gmail.com
-                            </a>
-                            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.5rem' }}>
-                                <a href="https://linkedin.com/in/syed-suhaan/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 600 }}>LinkedIn</a>
-                                <a href="https://github.com/syed-suhaan" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-primary)', fontSize: '1rem', fontWeight: 600 }}>GitHub</a>
+                        <div className="mt-8 flex flex-col gap-4 items-start">
+                            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-semibold rounded-full px-10 py-6 shadow-[0_0_30px_-4px_hsl(14,100%,50%,0.3)] hover:shadow-[0_0_40px_-2px_hsl(14,100%,50%,0.45)] transition-all duration-300">
+                                <a href="mailto:suhaansyed2004@gmail.com">
+                                    suhaansyed2004@gmail.com
+                                </a>
+                            </Button>
+
+                            <div className="flex gap-6 mt-2">
+                                <a href="https://linkedin.com/in/syed-suhaan/" target="_blank" rel="noopener noreferrer" className="text-foreground font-semibold hover:text-primary transition-colors duration-200">
+                                    LinkedIn
+                                </a>
+                                <a href="https://github.com/syed-suhaan" target="_blank" rel="noopener noreferrer" className="text-foreground font-semibold hover:text-primary transition-colors duration-200">
+                                    GitHub
+                                </a>
                             </div>
-                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-                                <span style={{ color: 'var(--accent-primary)', fontWeight: 700 }}>●</span> Open for Summer 2026 Internships
+
+                            <p className="text-sm text-muted-foreground m-0">
+                                <span className="text-primary font-bold">●</span> Open for Summer 2026 Internships
                             </p>
                         </div>
                     </div>
 
                     {/* Right: Game */}
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <div style={{
-                            padding: '2rem',
-                            backgroundColor: 'var(--bg-card)',
-                            border: '1px solid var(--border-color)',
-                            borderRadius: '24px',
-                            width: '100%',
-                            maxWidth: '400px',
-                            boxShadow: '0 20px 40px -10px rgba(0,0,0,0.5)'
-                        }}>
+                    <div className="flex justify-center items-center">
+                        <Card className="p-6 bg-card border-border rounded-3xl w-full max-w-[400px] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]">
                             <FooterGame />
-                        </div>
+                        </Card>
                     </div>
                 </div>
             </div>

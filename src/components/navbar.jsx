@@ -1,34 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+    const [sheetOpen, setSheetOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const isHome = location.pathname === '/';
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-        };
+        const handleScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Lock body scroll when menu is open
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-    }, [isOpen]);
-
     const navLinks = [
         { name: 'About', to: 'about' },
         { name: 'Work', to: 'projects' },
+        { name: 'Experience', to: 'experience' },
         { name: 'Contact', to: 'contact' },
     ];
 
@@ -36,61 +28,50 @@ const Navbar = () => {
         if (!isHome) {
             navigate('/', { state: { scrollTo: to } });
         }
-        setIsOpen(false);
+        setSheetOpen(false);
     };
 
     return (
-        <nav className={`site-nav ${scrolled ? 'nav-solid' : ''}`}>
-            <div className="container nav-content">
-                <div
-                    className="logo"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => navigate('/')}
-                >
-                    SUHAAN
-                </div>
+        <>
+            <nav className={`
+                fixed top-4 left-1/2 -translate-x-1/2 z-[1000] 
+                w-[92%] max-w-[900px]
+                transition-all duration-500 ease-out
+                ${scrolled
+                    ? 'top-3 w-[88%] max-w-[860px]'
+                    : 'top-5'
+                }
+            `}>
+                <div className={`
+                    relative flex items-center justify-between
+                    px-5 py-3 rounded-2xl
+                    border border-white/[0.08]
+                    transition-all duration-500 ease-out
+                    ${scrolled
+                        ? 'bg-white/[0.04] backdrop-blur-2xl shadow-[0_8px_32px_-4px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)] border-white/[0.12]'
+                        : 'bg-white/[0.02] backdrop-blur-xl shadow-[0_4px_24px_-4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]'
+                    }
+                `}>
+                    {/* Liquid glass highlights */}
+                    <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
+                        {/* Top edge highlight */}
+                        <div className="absolute top-0 left-[10%] right-[10%] h-[1px] bg-gradient-to-r from-transparent via-white/[0.15] to-transparent" />
+                        {/* Left corner glow */}
+                        <div className="absolute -top-[50%] -left-[10%] w-[200px] h-[200px] bg-primary/[0.03] rounded-full blur-3xl" />
+                        {/* Right corner glow */}
+                        <div className="absolute -top-[50%] -right-[10%] w-[150px] h-[150px] bg-primary/[0.02] rounded-full blur-3xl" />
+                    </div>
 
-                {/* Desktop Links */}
-                <div className="nav-links desktop-only">
-                    {navLinks.map(link => (
-                        isHome ? (
-                            <ScrollLink
-                                key={link.to}
-                                to={link.to}
-                                smooth={true}
-                                duration={500}
-                                className="nav-link"
-                                style={{ cursor: 'pointer' }}
-                            >
-                                {link.name}
-                            </ScrollLink>
-                        ) : (
-                            <span
-                                key={link.to}
-                                className="nav-link"
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => handleNavClick(link.to)}
-                            >
-                                {link.name}
-                            </span>
-                        )
-                    ))}
-                </div>
+                    {/* Logo */}
+                    <div
+                        className="relative cursor-pointer font-['Syne'] font-extrabold text-xl text-primary uppercase tracking-tight leading-none select-none hover:scale-105 transition-transform duration-300"
+                        onClick={() => navigate('/')}
+                    >
+                        SUHAAN
+                    </div>
 
-                {/* Mobile Hamburger Button */}
-                <button
-                    className="hamburger-btn mobile-only"
-                    onClick={() => setIsOpen(!isOpen)}
-                    aria-label="Toggle Menu"
-                >
-                    <span className={`bar ${isOpen ? 'open' : ''}`}></span>
-                    <span className={`bar ${isOpen ? 'open' : ''}`}></span>
-                    <span className={`bar ${isOpen ? 'open' : ''}`}></span>
-                </button>
-
-                {/* Mobile Sidebar Overlay */}
-                <div className={`mobile-sidebar ${isOpen ? 'open' : ''}`}>
-                    <div className="sidebar-links">
+                    {/* Desktop Links */}
+                    <div className="hidden md:flex items-center gap-1 relative">
                         {navLinks.map(link => (
                             isHome ? (
                                 <ScrollLink
@@ -98,110 +79,83 @@ const Navbar = () => {
                                     to={link.to}
                                     smooth={true}
                                     duration={500}
-                                    className="sidebar-link"
-                                    onClick={() => setIsOpen(false)}
+                                    className="px-3.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-white/[0.06] transition-all duration-200 cursor-pointer"
                                 >
                                     {link.name}
                                 </ScrollLink>
                             ) : (
                                 <span
                                     key={link.to}
-                                    className="sidebar-link"
+                                    className="px-3.5 py-1.5 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-white/[0.06] transition-all duration-200 cursor-pointer"
                                     onClick={() => handleNavClick(link.to)}
                                 >
                                     {link.name}
                                 </span>
                             )
                         ))}
+
+                        {/* CTA */}
+                        {isHome ? (
+                            <ScrollLink
+                                to="contact"
+                                smooth={true}
+                                duration={500}
+                                className="ml-2 cursor-pointer"
+                            >
+                                <Button size="sm" className="bg-primary/90 hover:bg-primary text-primary-foreground font-semibold text-xs uppercase tracking-wider rounded-xl shadow-[0_0_20px_-4px_hsl(14,100%,50%,0.3)] hover:shadow-[0_0_24px_-2px_hsl(14,100%,50%,0.5)] transition-all duration-300">
+                                    Let&apos;s Talk
+                                </Button>
+                            </ScrollLink>
+                        ) : (
+                            <Button
+                                size="sm"
+                                className="ml-2 bg-primary/90 hover:bg-primary text-primary-foreground font-semibold text-xs uppercase tracking-wider rounded-xl shadow-[0_0_20px_-4px_hsl(14,100%,50%,0.3)] hover:shadow-[0_0_24px_-2px_hsl(14,100%,50%,0.5)] transition-all duration-300"
+                                onClick={() => handleNavClick('contact')}
+                            >
+                                Let&apos;s Talk
+                            </Button>
+                        )}
                     </div>
+
+                    {/* Mobile: Sheet Trigger */}
+                    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+                        <SheetTrigger asChild className="md:hidden">
+                            <button className="relative z-50 flex flex-col gap-[5px] p-2 group">
+                                <span className={`block w-6 h-[2px] bg-foreground transition-all duration-300 ${sheetOpen ? 'rotate-45 translate-y-[7px] bg-primary' : ''}`} />
+                                <span className={`block w-6 h-[2px] bg-foreground transition-all duration-300 ${sheetOpen ? 'opacity-0' : ''}`} />
+                                <span className={`block w-6 h-[2px] bg-foreground transition-all duration-300 ${sheetOpen ? '-rotate-45 -translate-y-[7px] bg-primary' : ''}`} />
+                            </button>
+                        </SheetTrigger>
+                        <SheetContent side="right" className="w-[75%] bg-background/95 backdrop-blur-2xl border-l border-white/[0.06] pt-20">
+                            <div className="flex flex-col gap-6">
+                                {navLinks.map(link => (
+                                    isHome ? (
+                                        <ScrollLink
+                                            key={link.to}
+                                            to={link.to}
+                                            smooth={true}
+                                            duration={500}
+                                            className="text-3xl font-extrabold text-foreground uppercase tracking-tight cursor-pointer hover:text-primary transition-colors duration-200"
+                                            onClick={() => setSheetOpen(false)}
+                                        >
+                                            {link.name}
+                                        </ScrollLink>
+                                    ) : (
+                                        <span
+                                            key={link.to}
+                                            className="text-3xl font-extrabold text-foreground uppercase tracking-tight cursor-pointer hover:text-primary transition-colors duration-200"
+                                            onClick={() => handleNavClick(link.to)}
+                                        >
+                                            {link.name}
+                                        </span>
+                                    )
+                                ))}
+                            </div>
+                        </SheetContent>
+                    </Sheet>
                 </div>
-            </div>
-
-            <style>{`
-        @keyframes fadeDownCustom {
-          from { opacity: 0; transform: translateY(-16px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .nav-link:hover {
-            filter: brightness(1.2);
-            text-shadow: 0 0 10px rgba(255, 61, 0, 0.5);
-        }
-
-        /* Hamburger Button Styles */
-        .hamburger-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            z-index: 2000; /* Above overlay */
-            padding: 0.5rem;
-        }
-        .bar {
-            width: 30px;
-            height: 3px;
-            background-color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-        /* Hamburger Animation */
-        .bar.open:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); background-color: var(--accent-primary); }
-        .bar.open:nth-child(2) { opacity: 0; }
-        .bar.open:nth-child(3) { transform: rotate(-45deg) translate(7px, -8px); background-color: var(--accent-primary); }
-
-        /* Mobile Sidebar Styles */
-        .mobile-sidebar {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 70%; /* Side Drawer */
-            height: 100vh;
-            background-color: rgba(5, 5, 5, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 1500;
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-left: 1px solid var(--border-color);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-        }
-        .mobile-sidebar.open {
-            right: 0;
-        }
-        .sidebar-links {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            text-align: center;
-        }
-        .sidebar-link {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .sidebar-link:hover {
-            color: var(--accent-primary);
-        }
-
-        /* Responsive Visibility */
-        .mobile-only { display: none; }
-        .desktop-only { display: flex; }
-
-        @media (max-width: 768px) {
-            .mobile-only { display: flex; }
-            .desktop-only { display: none; }
-            .nav-content {
-                /* Keep horizontal row for Logo + Hamburger */
-                flex-direction: row !important; 
-                justify-content: space-between !important;
-            }
-        }
-      `}</style>
-        </nav >
+            </nav>
+        </>
     );
 };
 

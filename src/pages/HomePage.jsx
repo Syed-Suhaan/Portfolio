@@ -5,6 +5,7 @@ import Experience from "../components/experience";
 import Achievements from "../components/testimonials";
 import About from "../components/about";
 import Contact from "../components/contact";
+import { Separator } from "@/components/ui/separator";
 
 const HomePage = () => {
     return (
@@ -17,64 +18,29 @@ const HomePage = () => {
             <Achievements />
             <Contact />
 
-            {/* Simple Footer */}
-            <footer
-                className="section"
-                style={{
-                    borderTop: "1px solid var(--border-color)",
-                    padding: "4rem 0",
-                    backgroundColor: "var(--bg-card)",
-                }}
-            >
-                <div className="container">
-                    <div
-                        style={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            flexWrap: "wrap",
-                            gap: "2rem",
-                        }}
-                    >
-                        {/* Left: Brand */}
-                        <div>
-                            <h3
-                                className="logo"
-                                style={{ fontSize: "1.75rem", margin: 0, lineHeight: 1 }}
-                            >
+            {/* Footer */}
+            <footer className="border-t border-border bg-card py-12">
+                <div className="container max-w-[1200px] mx-auto px-8">
+                    <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                        {/* Brand */}
+                        <div className="text-center md:text-left">
+                            <h3 className="font-['Syne'] font-extrabold text-2xl text-primary uppercase tracking-tight leading-none m-0">
                                 SUHAAN
                             </h3>
-                            <p
-                                style={{
-                                    margin: "0.5rem 0 0",
-                                    color: "var(--text-secondary)",
-                                }}
-                            >
+                            <p className="mt-2 text-sm text-muted-foreground m-0">
                                 © 2025 All Rights Reserved.
                             </p>
                         </div>
 
-                        {/* Right: Links */}
-                        <div
-                            style={{ display: "flex", gap: "2rem", alignItems: "center" }}
-                        >
-                            <a
-                                href="https://linkedin.com/in/syed-suhaan/"
-                                className="nav-link"
-                            >
+                        {/* Links */}
+                        <div className="flex gap-8 items-center">
+                            <a href="https://linkedin.com/in/syed-suhaan/" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
                                 LinkedIn
                             </a>
-                            <a
-                                href="https://github.com/syed-suhaan"
-                                className="nav-link"
-                            >
+                            <a href="https://github.com/syed-suhaan" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
                                 GitHub
                             </a>
-                            <a
-                                href="mailto:suhaansyed2004@gmail.com"
-                                className="nav-link"
-                            >
+                            <a href="mailto:suhaansyed2004@gmail.com" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
                                 Email
                             </a>
                         </div>

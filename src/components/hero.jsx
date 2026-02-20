@@ -1,26 +1,22 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 const Reveal = ({ children, className = "", delay = 0, animation = "reveal-fade-up" }) => {
     const ref = useIntersectionObserver();
     return (
-        <div
-            ref={ref}
-            className={`${animation} ${className}`}
-            style={{ '--delay': `${delay}s` }}
-        >
+        <div ref={ref} className={`${animation} ${className}`} style={{ '--delay': `${delay}s` }}>
             {children}
         </div>
     );
 };
 
 const TechIcon = ({ name, path }) => (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+    <div className="flex flex-col items-center gap-2 group">
         <div
-            className="tech-icon"
+            className="w-10 h-10 transition-all duration-300 group-hover:scale-125 group-hover:drop-shadow-[0_0_12px_hsl(14,100%,50%)]"
             style={{
-                width: '40px',
-                height: '40px',
-                backgroundColor: 'var(--accent-primary)',
+                backgroundColor: 'hsl(var(--primary))',
                 maskImage: `url("${path}")`,
                 WebkitMaskImage: `url("${path}")`,
                 maskSize: 'contain',
@@ -29,10 +25,9 @@ const TechIcon = ({ name, path }) => (
                 WebkitMaskRepeat: 'no-repeat',
                 maskPosition: 'center',
                 WebkitMaskPosition: 'center',
-                transition: 'all 0.3s ease'
             }}
         />
-        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary)', textTransform: 'uppercase' }}>{name}</span>
+        <span className="text-[0.7rem] font-semibold text-muted-foreground uppercase tracking-wide">{name}</span>
     </div>
 );
 
@@ -41,7 +36,6 @@ const Hero = () => {
     const stagger = 0.08;
     const getDelay = (index) => startDelay + (index * stagger);
 
-    // Using user-provided icons from public/icons folder
     const stack = [
         { name: "Go", path: "/icons/go-svgrepo-com.svg" },
         { name: "Node.js", path: "/icons/nodejs02-svgrepo-com.svg" },
@@ -52,221 +46,99 @@ const Hero = () => {
     ];
 
     return (
-        <section className="section hero-section" style={{
-            minHeight: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center', /* Vertically center */
-            paddingTop: '15vh',
-            backgroundColor: 'var(--bg-color)',
-            position: 'relative',
-            overflow: 'hidden'
-        }}>
+        <section className="section hero-section min-h-screen flex flex-col justify-center pt-[15vh] bg-background relative overflow-hidden">
             {/* Background Image with Gradient Mask */}
-            <div className="profile-image-container" style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                width: '50%', /* Cover right half or adjust as needed */
-                height: '100%',
-                zIndex: 0,
-                opacity: 0.8,
-                maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
-                WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
-            }}>
+            <div className="profile-image-container absolute top-0 right-0 w-1/2 h-full z-0 opacity-80"
+                style={{
+                    maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+                    WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)',
+                }}>
                 <img
                     src="/profile.png"
                     alt="Syed Suhaan"
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center top'
-                    }}
+                    className="w-full h-full object-cover object-[center_top]"
                 />
-                {/* Overlay for better text contrast if needed */}
-                <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(to bottom, transparent 60%, var(--bg-color) 100%)'
-                }}></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
             </div>
 
-            <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-
-                {/* 1. Name removed as requested (now in Navbar) */}
-
-                {/* 2. Massive Typography */}
-                <div className="hero-title" style={{ marginTop: '0', marginBottom: '3rem' }}>
-                    <Reveal delay={getDelay(0)} className="hero-title-line">
-                        <h1 style={{
-                            fontSize: 'clamp(3.5rem, 8vw, 7rem)',
-                            lineHeight: 0.9,
-                            letterSpacing: '-0.04em',
-                            textTransform: 'uppercase',
-                            fontWeight: 800,
-                            margin: 0,
-                            color: 'var(--text-primary)'
-                        }}>
+            <div className="container relative z-[1] max-w-[1200px] mx-auto px-8 md:px-8">
+                {/* Massive Typography */}
+                <div className="mb-12">
+                    <Reveal delay={getDelay(0)}>
+                        <h1 className="text-[clamp(3.5rem,8vw,7rem)] leading-[0.9] tracking-tighter uppercase font-extrabold text-foreground m-0">
                             Aspiring
                         </h1>
                     </Reveal>
-                    <Reveal delay={getDelay(2)} className="hero-title-line">
-                        <h1 style={{
-                            fontSize: 'clamp(3.5rem, 8vw, 7rem)',
-                            lineHeight: 0.9,
-                            letterSpacing: '-0.04em',
-                            fontWeight: 800,
-                            margin: 0,
-                            color: 'var(--text-primary)',
-                            display: 'flex',
-                            flexDirection: 'column', // Stacked
-                            alignItems: 'flex-start',
-                        }}>
-                            <span style={{ color: 'var(--accent-primary)', fontFamily: 'serif', fontStyle: 'italic', fontWeight: 400, textTransform: 'lowercase' }}>software</span>
-                            <span style={{ textTransform: 'uppercase' }}>Engineer</span>
+                    <Reveal delay={getDelay(2)}>
+                        <h1 className="text-[clamp(3.5rem,8vw,7rem)] leading-[0.9] tracking-tighter font-extrabold m-0 flex flex-col items-start">
+                            <span className="text-primary font-serif italic font-normal lowercase">software</span>
+                            <span className="text-foreground uppercase">Engineer</span>
                         </h1>
                     </Reveal>
                 </div>
 
-                {/* 3. Subtext & Stats */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '900px' }}>
-                    <Reveal delay={getDelay(4)} className="hero-subtext">
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', alignItems: 'flex-start' }}>
-                            <p style={{ fontSize: '1.25rem', lineHeight: 1.5, color: 'var(--text-secondary)', fontWeight: 400, margin: 0 }}>
+                {/* Subtext & Stats Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 max-w-[900px]">
+                    <Reveal delay={getDelay(4)}>
+                        <div className="flex flex-col gap-6 items-start">
+                            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground m-0">
                                 Driven by algorithms and data structures.
-                                Building high-performance applications with <span style={{ color: 'var(--text-primary)' }}>O(n) efficiency</span>.
+                                Building high-performance applications with{' '}
+                                <span className="text-foreground font-medium">O(n) efficiency</span>.
                             </p>
 
-                            {/* Stats moved here */}
-                            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <span style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1 }}>1494</span>
-                                <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--text-secondary)', fontWeight: 600 }}>Codeforces </span>
+                            <div className="flex flex-col">
+                                <span className="text-2xl font-bold text-foreground leading-none">1523</span>
+                                <span className="text-xs uppercase text-muted-foreground font-semibold tracking-wide">Codeforces</span>
                             </div>
                         </div>
                     </Reveal>
 
-                    <Reveal delay={getDelay(5)} className="hero-cta-group">
-                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: '1rem', height: '100%' }}>
-                            <div style={{
-                                padding: '0.4rem 0.8rem',
-                                border: '1px solid var(--accent-primary)',
-                                borderRadius: '99px',
-                                color: 'var(--accent-primary)',
-                                fontSize: '0.7rem',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em'
-                            }}>
+                    <Reveal delay={getDelay(5)}>
+                        <div className="flex flex-col justify-center items-start gap-4 h-full">
+                            <Badge variant="outline" className="border-primary text-primary text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full">
                                 Open For Internships
-                            </div>
+                            </Badge>
 
-                            {/* Buttons Group */}
-                            <div className="cta-container">
-                                <a
-                                    href="https://drive.google.com/file/d/1Nxh2weEzHh4kmAcWEdpEv81fUPSYAB3C/view?usp=sharing"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn btn-outline"
-                                    style={{ textAlign: 'center' }}
-                                >
-                                    View Resume
-                                </a>
-                                <a href="#contact" className="btn btn-primary" style={{ textAlign: 'center' }}>
-                                    Let's Connect
-                                </a>
+                            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                                <Button variant="outline" asChild className="border-border hover:border-primary hover:text-primary text-foreground rounded-xl font-semibold uppercase tracking-wider text-xs transition-all duration-300">
+                                    <a href="https://drive.google.com/file/d/1X-AvqQs-4fIeESDqYpalphUyqiGUD65L/view" target="_blank" rel="noopener noreferrer">
+                                        View Resume
+                                    </a>
+                                </Button>
+                                <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl font-semibold uppercase tracking-wider text-xs shadow-[0_0_20px_-4px_hsl(14,100%,50%,0.4)] hover:shadow-[0_0_28px_-2px_hsl(14,100%,50%,0.5)] transition-all duration-300">
+                                    <a href="#contact">
+                                        Let&apos;s Connect
+                                    </a>
+                                </Button>
                             </div>
                         </div>
                     </Reveal>
                 </div>
 
-                {/* 4. Tech Stack (Moved from separate component) */}
-                <Reveal delay={getDelay(6)} className="hero-stack">
-                    <div style={{
-                        marginTop: '4rem',
-                        paddingTop: '2rem',
-                        borderTop: '1px solid var(--border-color)',
-                        maxWidth: '900px'
-                    }}>
-                        <p style={{
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            color: 'var(--text-secondary)',
-                            fontWeight: 600,
-                            letterSpacing: '0.05em',
-                            marginBottom: '1.5rem'
-                        }}>
+                {/* Tech Stack */}
+                <Reveal delay={getDelay(6)}>
+                    <div className="mt-16 pt-8 border-t border-border max-w-[900px]">
+                        <p className="text-xs uppercase text-muted-foreground font-semibold tracking-widest mb-6 m-0">
                             Stack & Tools
                         </p>
-                        <div style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            gap: '3rem',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center'
-                        }}>
+                        <div className="flex flex-wrap gap-10 items-center">
                             {stack.map((tech, index) => (
                                 <TechIcon key={index} {...tech} />
                             ))}
                         </div>
                     </div>
                 </Reveal>
-
             </div>
+
             <style>{`
-                .tech-icon:hover {
-                    transform: scale(1.2);
-                    background-color: var(--accent-primary) !important; 
-                    filter: drop-shadow(0 0 10px var(--accent-primary)) drop-shadow(0 0 20px var(--accent-primary));
-                    opacity: 1;
-                }
-
                 @media (max-width: 768px) {
-                    .profile-image-container {
-                        display: none !important;
-                    }
-                    /* Reset container positioning for mobile flow */
-                    .hero-section {
-                        padding-top: 10vh !important;
-                        justify-content: flex-start !important;
-                    }
-                    /* Typography scaling */
-                    .hero-title h1 {
-                        font-size: 3.5rem !important; /* Smaller but still bold */
-                    }
-                    .hero-subtext p {
-                         font-size: 1rem !important;
-                    }
-                    .hero-stack {
-                         margin-top: 2rem !important;
-                    }
-
-                    .cta-container {
-                        display: flex; 
-                        flex-direction: column; 
-                        gap: 1rem; 
-                        width: 100%; /* Full width on mobile */
-                    }
-
-                    /* Prevent button overflow */
-                    .btn {
-                        width: 100%; /* Full width buttons on mobile */
-                        justify-content: center;
-                    }
-                }
-
-                /* Desktop specific styles for buttons */
-                @media (min-width: 769px) {
-                    .cta-container {
-                        display: flex; 
-                        flex-direction: column; 
-                        gap: 1rem; 
-                        width: auto; /* Fit content on desktop */
-                        min-width: 200px; /* Minimum consistent width */
-                    }
+                    .profile-image-container { display: none !important; }
+                    .hero-section { padding-top: 10vh !important; justify-content: flex-start !important; }
                 }
             `}</style>
         </section>
     );
 };
+
 export default Hero;

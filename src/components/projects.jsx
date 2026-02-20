@@ -1,240 +1,99 @@
 import { Link } from 'react-router-dom';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import projects from '../data/projects';
 
 const ProjectCard = ({ project, delay }) => {
     const ref = useIntersectionObserver({ threshold: 0.1 });
-    const accentColor = project.color || 'var(--accent-primary)';
+    const accentColor = project.color || 'hsl(var(--primary))';
 
     return (
-        <Link
-            to={`/projects/${project.slug}`}
-            ref={ref}
-            className="project-card reveal-fade-up"
-            style={{
-                '--delay': `${delay}s`,
-                '--card-accent': accentColor,
-                backgroundColor: 'var(--bg-card)',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                border: '1px solid var(--border-color)',
-                transition: 'all 0.4s ease',
-                cursor: 'pointer',
-                textDecoration: 'none',
-                color: 'inherit',
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            {/* Thumbnail Area */}
-            <div className="project-image" style={{
-                height: '200px',
-                backgroundColor: '#050505',
-                position: 'relative',
-                overflow: 'hidden',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-                {/* Background gradient */}
-                <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: `linear-gradient(135deg, ${accentColor}08 0%, #050505 50%, ${accentColor}05 100%)`,
-                }}></div>
+        <Link to={`/projects/${project.slug}`} className="no-underline group">
+            <Card
+                ref={ref}
+                className="reveal-fade-up bg-card border-border overflow-hidden transition-all duration-400 hover:-translate-y-2 hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5)] hover:border-white/10 h-full"
+                style={{ '--delay': `${delay}s` }}
+            >
+                {/* Accent top bar */}
+                <div className="h-[3px] w-0 group-hover:w-full transition-all duration-500 ease-out" style={{ backgroundColor: accentColor }} />
 
-                {/* Accent glow on hover */}
-                <div className="project-glow" style={{
-                    position: 'absolute',
-                    width: '120px',
-                    height: '120px',
-                    borderRadius: '50%',
-                    background: `radial-gradient(circle, ${accentColor}20, transparent 70%)`,
-                    filter: 'blur(30px)',
-                    opacity: 0,
-                    transition: 'opacity 0.4s ease',
-                }}></div>
-
-                {/* Icon */}
-                {project.icon && (
-                    <div
-                        className="project-card-icon"
-                        style={{
-                            width: '64px',
-                            height: '64px',
-                            backgroundColor: accentColor,
-                            maskImage: `url("${project.icon}")`,
-                            WebkitMaskImage: `url("${project.icon}")`,
-                            maskSize: 'contain',
-                            WebkitMaskSize: 'contain',
-                            maskRepeat: 'no-repeat',
-                            WebkitMaskRepeat: 'no-repeat',
-                            maskPosition: 'center',
-                            WebkitMaskPosition: 'center',
-                            zIndex: 1,
-                            transition: 'all 0.4s ease',
-                            filter: `drop-shadow(0 0 15px ${accentColor}40)`
-                        }}
-                    />
-                )}
-            </div>
-
-            {/* Content Area */}
-            <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                {/* Category + Date row */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                    <span style={{
-                        fontSize: '0.6rem',
-                        fontWeight: 700,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.08em',
-                        padding: '0.2rem 0.5rem',
-                        border: `1px solid ${accentColor}40`,
-                        borderRadius: '99px',
-                        color: accentColor,
-                    }}>
-                        {project.category}
-                    </span>
-                    <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
-                        {project.date}
-                    </span>
-                </div>
-
-                <h3 style={{
-                    marginBottom: '0.25rem',
-                    fontSize: '1.3rem',
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    letterSpacing: '-0.02em'
-                }}>{project.title}</h3>
-
-                <p style={{
-                    fontSize: '0.8rem',
-                    marginBottom: '1rem',
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.5,
-                    flex: 1
-                }}>{project.summary}</p>
-
-                {/* Key metric preview */}
-                {project.highlights?.[0] && (
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'baseline',
-                        gap: '0.5rem',
-                        marginBottom: '1rem',
-                        paddingTop: '0.75rem',
-                        borderTop: `1px solid var(--border-color)`,
-                    }}>
-                        <span style={{
-                            fontSize: '1.5rem',
-                            fontWeight: 800,
-                            color: accentColor,
-                            lineHeight: 1,
-                        }}>{project.highlights[0].metric}</span>
-                        <span style={{
-                            fontSize: '0.65rem',
-                            textTransform: 'uppercase',
-                            fontWeight: 600,
-                            color: 'var(--text-secondary)',
-                            letterSpacing: '0.03em',
-                        }}>{project.highlights[0].label}</span>
+                <CardHeader className="p-6 pb-3">
+                    <div className="flex items-center justify-between mb-3">
+                        <Badge variant="outline" className="text-[0.6rem] font-bold uppercase tracking-wider" style={{ borderColor: accentColor, color: accentColor }}>
+                            {project.category}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground font-medium">{project.date}</span>
                     </div>
-                )}
+                    <h3 className="text-xl font-extrabold uppercase tracking-tight text-foreground group-hover:text-white transition-colors m-0">
+                        {project.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground font-medium mt-1 m-0">{project.subtitle}</p>
+                </CardHeader>
 
-                {/* Tags */}
-                <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    {project.tags.slice(0, 4).map(tag => (
-                        <span key={tag} style={{
-                            fontSize: '0.7rem',
-                            padding: '0.2rem 0.6rem',
-                            backgroundColor: `${accentColor}10`,
-                            color: accentColor,
-                            borderRadius: '999px',
-                            border: `1px solid ${accentColor}25`,
-                            fontWeight: 600,
-                        }}>
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-            </div>
+                <CardContent className="p-6 pt-0">
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-5">
+                        {project.description}
+                    </p>
+
+                    {/* Metric Preview */}
+                    {project.highlights && project.highlights.length > 0 && (
+                        <div className="flex gap-4 mb-4">
+                            {project.highlights.slice(0, 2).map((h, i) => (
+                                <div key={i} className="flex items-baseline gap-1.5">
+                                    <span className="text-lg font-extrabold" style={{ color: accentColor }}>{h.metric}</span>
+                                    <span className="text-[0.6rem] text-muted-foreground uppercase font-semibold">{h.label}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {project.tags?.slice(0, 4).map(tag => (
+                            <span key={tag} className="text-[0.6rem] font-semibold px-2.5 py-0.5 rounded-full border border-border text-muted-foreground bg-secondary/50">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                </CardContent>
+            </Card>
         </Link>
     );
 };
 
 const Projects = () => {
     return (
-        <section id="projects" className="section">
-            <div className="container">
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem' }}>
+        <section id="projects" className="section py-24 bg-background">
+            <div className="container max-w-[1200px] mx-auto px-8">
+                {/* Section Header */}
+                <div className="flex items-end justify-between mb-12">
                     <div>
-                        <p style={{
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.12em',
-                            color: 'var(--accent-primary)',
-                            fontWeight: 700,
-                            marginBottom: '0.5rem',
-                        }}>Work</p>
-                        <h2 style={{
-                            fontSize: 'clamp(2rem, 5vw, 3rem)',
-                            fontWeight: 800,
-                            margin: 0,
-                            textTransform: 'uppercase',
-                            letterSpacing: '-0.03em'
-                        }}>
-                            Selected Projects
+                        <p className="text-xs uppercase tracking-[0.12em] text-primary font-bold mb-2 m-0">
+                            Selected Work
+                        </p>
+                        <h2 className="text-[clamp(2rem,5vw,3rem)] font-extrabold uppercase tracking-tight text-foreground m-0">
+                            Projects
                         </h2>
                     </div>
-                    <Link to="/projects" style={{
-                        color: 'var(--accent-primary)',
-                        fontWeight: 600,
-                        textDecoration: 'underline',
-                        textUnderlineOffset: '4px',
-                        fontSize: '0.9rem',
-                        whiteSpace: 'nowrap',
-                    }}>
-                        View All →
+                    <Link to="/projects">
+                        <Button variant="ghost" className="text-muted-foreground hover:text-primary text-sm font-semibold uppercase tracking-wider group">
+                            View All
+                            <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </Button>
                     </Link>
                 </div>
 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                    gap: '1.5rem'
-                }}>
+                {/* Project Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {projects.map((project, index) => (
-                        <ProjectCard
-                            key={project.slug}
-                            project={project}
-                            delay={index * 0.1}
-                        />
+                        <ProjectCard key={project.slug} project={project} delay={index * 0.12} />
                     ))}
                 </div>
             </div>
-            <style>{`
-        .project-card {
-          position: relative;
-          overflow: hidden;
-        }
-        .project-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 24px 48px -12px rgba(0,0,0,0.6);
-          border-color: var(--card-accent) !important;
-        }
-        .project-card:hover .project-glow {
-          opacity: 1 !important;
-        }
-        .project-card:hover .project-card-icon {
-          transform: scale(1.1);
-          filter: drop-shadow(0 0 25px var(--card-accent)) !important;
-        }
-        .project-card:hover .project-image > div:first-child {
-          transition: transform 0.4s ease;
-          transform: scale(1.05);
-        }
-      `}</style>
         </section>
     );
 };
