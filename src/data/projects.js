@@ -1,5 +1,101 @@
 const projects = [
     {
+        slug: "secondcortex",
+        title: "SecondCortex",
+        subtitle: "AI-Powered Developer Memory System",
+        category: "AI / Developer Tools",
+        date: "Feb 2026 – Present",
+        icon: null,
+        color: "#8B5CF6",
+        summary:
+            "An AI-powered developer memory system that captures coding context, protects sensitive data locally, and helps developers resume complex work in seconds. Features multi-agent orchestration, semantic search, and workspace resurrection.",
+        description:
+            "SecondCortex is an AI-powered developer memory system that captures your coding context, protects sensitive data locally, and helps you resume complex work in seconds. It features automatic context capture, privacy-first redaction, semantic search across months of work history, and one-click workspace resurrection.",
+        highlights: [
+            {
+                metric: "4-Layer",
+                label: "Architecture",
+                detail: "VS Code Extension → FastAPI Backend → ChromaDB → Git API",
+            },
+            {
+                metric: "100%",
+                label: "Local Redaction",
+                detail: "Semantic Firewall scrubs secrets before data leaves your machine",
+            },
+            {
+                metric: "4",
+                label: "AI Agents",
+                detail: "Retriever, Planner, Executor, and Simulator agents for intelligent orchestration",
+            },
+            {
+                metric: "MCP",
+                label: "Integration",
+                detail: "Model Context Protocol server for external AI client access",
+            },
+        ],
+        bullets: [
+            "Built a VS Code extension (TypeScript) that captures editor events, terminal output, git changes, and code snapshots with configurable debouncing intervals to reduce noise.",
+            "Implemented a Semantic Firewall using AST-based analysis to automatically redact API keys, credentials, PII, and other sensitive data locally before any backend sync.",
+            "Engineered a multi-agent orchestration system in FastAPI: Retriever Agent for ADD/UPDATE/DELETE decisions, Planner Agent for query decomposition, Executor Agent with confidence scoring, and Simulator Agent for pre-flight safety analysis.",
+            "Developed a Workspace Resurrection Engine that restores exact IDE state — open files, branch, terminal history — enabling developers to resume work in seconds instead of hours.",
+            "Created a Model Context Protocol (MCP) server exposing developer memory to external AI clients via custom search_memory() tool with secure API key management.",
+            "Built an AI-powered web dashboard (Next.js) featuring real-time team activity timeline, project evolution tracking, snapshot summaries, and decision archaeology with confidence scoring.",
+        ],
+        techStack: [
+            { name: "TypeScript", icon: null },
+            { name: "Python", icon: null },
+            { name: "Next.js", icon: null },
+            { name: "FastAPI", icon: "/icons/fastapi-svgrepo-com.svg" },
+            { name: "ChromaDB", icon: null },
+            { name: "React", icon: "/icons/react-svgrepo-com.svg" },
+        ],
+        tags: [
+            "TypeScript",
+            "Python",
+            "Next.js",
+            "FastAPI",
+            "ChromaDB",
+            "Multi-Agent",
+            "MCP",
+            "VS Code Extension",
+        ],
+        architecture: {
+            overview:
+                "Distributed system with three layers: VS Code Extension (TypeScript) for context capture and local redaction, FastAPI Backend (Python) for multi-agent orchestration and storage, and Next.js Frontend for team dashboards and visualization.",
+            layers: [
+                {
+                    name: "VS Code Extension",
+                    detail:
+                        "TypeScript-based event capture with debouncer, semantic firewall for AST-based secret scrubbing, snapshot cache for reliable delivery, and workspace resurrector for state restoration",
+                },
+                {
+                    name: "Semantic Firewall",
+                    detail:
+                        "Local-only redaction engine using AST analysis for code secrets plus regex patterns for payment cards, SSNs, emails — backend never sees raw sensitive data",
+                },
+                {
+                    name: "FastAPI Backend",
+                    detail:
+                        "Multi-agent orchestration: Retriever (ADD/UPDATE/DELETE/NOOP), Planner (query decomposition), Executor (confidence-scored synthesis), Simulator (pre-flight safety analysis)",
+                },
+                {
+                    name: "Storage Layer",
+                    detail:
+                        "ChromaDB vector database for semantic search, SQLite for auth/sessions, Git API integration for retroactive commit mining and PR ingestion",
+                },
+                {
+                    name: "Frontend Dashboard",
+                    detail:
+                        "Next.js + React with team timeline, project evolution tracking, shadow graph visualization, and real-time chat interface with agent",
+                },
+            ],
+        },
+        links: {
+            github: "https://github.com/SuhaanSyed/SecondCortex",
+            live: null,
+        },
+    },
+    {
         slug: "passportphotoindia",
         title: "PassportPhotoIndia",
         subtitle: "Exam Photo Engine",
