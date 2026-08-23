@@ -6,9 +6,10 @@ export const profile = {
   linkedin: "https://linkedin.com/in/syed-suhaan",
   resume: "/resume.pdf",
   bio: [
-    "My name is Suhaan. I'm a final-year student at MIT Manipal, focused on applied AI — agent systems, voice, RAG, and evals.",
-    "I'm an Activate AI Fellow 2026 (14 / 600+; cohort with Sarvam, Emergent, Lexapar, Aeos Labs and others), currently a SWE — Applied AI Intern at Lexapar, where I built legal RAG pipelines and a realtime meeting voice agent end-to-end from scratch.",
-    "I'm also founding engineer at SecondCortex Labs, researching context management for AI coding agents (SecondCortex, Cortex CLI, on-device Cortex).",
+    "Hey, I am Suhaan. I'm a final-year student at MIT Manipal, focused on applied AI — agent systems, voice, RAG, and evals.",
+    "I have been an Activate AI Fellow 2026 (14 / 600+; cohort with Sarvam, Emergent, Lexapar, Aeos Labs and others), and interned as SWE — Applied AI Intern at Lexapar, where I built legal RAG pipelines and a realtime meeting voice agent end-to-end from scratch.",
+    "I've competed in hackathons at Microsoft, OpenAI, and Y Combinator.",
+    "At SecondCortex Labs, I'm researching context management for AI coding agents (SecondCortex, Cortex CLI, on-device Cortex).",
   ],
   contactNote:
     "Open to Applied AI / SWE roles for Fall–Winter 2026. Happy to chat about agents, evals, or SecondCortex.",
@@ -16,7 +17,7 @@ export const profile = {
 
 export const news = [
   {
-    date: "Jun 2026",
+    date: "Jun–Jul 2026",
     event: "Started SWE — Applied AI Intern at Lexapar via Activate AI Fellows.",
   },
   {
@@ -28,7 +29,11 @@ export const news = [
     event: "Top 100 at OpenAI Codex Hackathon — Cortex memory on Codex infra.",
   },
   {
-    date: "2026",
+    date: "Apr 2026",
+    event: "Top 100 at Y Combinator Hackathon.",
+  },
+  {
+    date: "Apr 2026",
     event: "Invited to YC Startup School Bengaluru on the strength of SecondCortex.",
   },
   {
@@ -36,7 +41,7 @@ export const news = [
     event: "Built SecondCortex — 5s developer context restore + MCP for Cursor / Claude / Codex.",
   },
   {
-    date: "2025",
+    date: "Nov 2025",
     event: "Meta Hacker Cup Round 2 — AIR 886 (top 0.3%).",
   },
   {
@@ -74,7 +79,7 @@ export const selectedWork = [
 
 export const experience = [
   {
-    date: "Jun 2026 – Present",
+    date: "Jun–Jul 2026",
     role: "SWE — Applied AI Intern",
     org: "Lexapar",
     detail:
